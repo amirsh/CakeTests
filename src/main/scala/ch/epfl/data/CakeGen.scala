@@ -5,10 +5,13 @@ import java.io.{File, PrintWriter}
 import ch.epfl.data.sc.pardis.utils.document._
 
 object CakeGen extends App {
+//  val (numOps, numDefs, numCakes) = (3, 2, 4)
+  val (numOps, numDefs, numCakes) = (30, 20, 40)
 
-  val oldCode = Code("Old", 3, 2, 4, implicits = true)
-  val newCode = Code("New", 3, 2, 4, implicits = false)
-  val oneCode = Code("One", 3, 2, 4, implicits = false, oneCake = true)
+  val oldCode = Code("Old", numOps, numDefs, numCakes, implicits = true)
+  val oldCodeSelfless = Code("OldSelfless", numOps, numDefs, numCakes, implicits = true, selfTypes = false)
+  val newCode = Code("New", numOps, numDefs, numCakes, implicits = false)
+  val oneCode = Code("One", numOps, numDefs, numCakes, implicits = false, oneCake = true)
 
   println(oldCode)
   
@@ -19,6 +22,7 @@ object CakeGen extends App {
     outputFile.close()
   }
   output(oldCode.toString, "CakeOld.scala")
+  output(oldCodeSelfless.toString, "CakeOldSelfless.scala")
   output(newCode.toString, "CakeNew.scala")
   output(oneCode.toString, "CakeOne.scala")
   
@@ -26,7 +30,13 @@ object CakeGen extends App {
 }
 
 object Code {
-  def apply(name: String, numOps: Int, numDefs: Int, numCakes: Int, implicits: Boolean, oneCake: Boolean = false) = {
+  def apply(name: String,
+            numOps: Int,
+            numDefs: Int,
+            numCakes: Int,
+            implicits: Boolean,
+            oneCake: Boolean = false,
+            selfTypes: Boolean = true) = {
     val db = new DocBuilder()
     
     val cake = 1 to numOps map {"Ops"+_} mkString " with "
@@ -41,7 +51,7 @@ object Code {
       for (i <- 1 to numOps) {
         val tname = s"T$i"
         db.bracesAfter(doc"trait Ops$i extends Base") {
-          db +=\\ doc"this: $cake => "
+          if (selfTypes) db +=\\ doc"this: $cake => "
           db +=\\ doc"class $tname"
           db.bracesAfter(doc"implicit class Rep$i(self: Rep[$tname])") {
             for (j <- 1 to numDefs)

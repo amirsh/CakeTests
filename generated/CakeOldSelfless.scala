@@ -1,10 +1,9 @@
-object Old {
+object OldSelfless {
   trait Base {
     class Rep[+T]
     def lift[T](t: T): Rep[T] = new Rep[T]
   }
   trait Ops1 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T1
     implicit class Rep1(self: Rep[T1]) {
       def m1: Rep[Int] = T1d1(self)
@@ -50,7 +49,6 @@ object Old {
     def T1d20(x: Rep[T1]): Rep[Int] = lift(42)
   }
   trait Ops2 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T2
     implicit class Rep2(self: Rep[T2]) {
       def m1: Rep[Int] = T2d1(self)
@@ -96,7 +94,6 @@ object Old {
     def T2d20(x: Rep[T2]): Rep[Int] = lift(42)
   }
   trait Ops3 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T3
     implicit class Rep3(self: Rep[T3]) {
       def m1: Rep[Int] = T3d1(self)
@@ -142,7 +139,6 @@ object Old {
     def T3d20(x: Rep[T3]): Rep[Int] = lift(42)
   }
   trait Ops4 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T4
     implicit class Rep4(self: Rep[T4]) {
       def m1: Rep[Int] = T4d1(self)
@@ -188,7 +184,6 @@ object Old {
     def T4d20(x: Rep[T4]): Rep[Int] = lift(42)
   }
   trait Ops5 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T5
     implicit class Rep5(self: Rep[T5]) {
       def m1: Rep[Int] = T5d1(self)
@@ -234,7 +229,6 @@ object Old {
     def T5d20(x: Rep[T5]): Rep[Int] = lift(42)
   }
   trait Ops6 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T6
     implicit class Rep6(self: Rep[T6]) {
       def m1: Rep[Int] = T6d1(self)
@@ -280,7 +274,6 @@ object Old {
     def T6d20(x: Rep[T6]): Rep[Int] = lift(42)
   }
   trait Ops7 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T7
     implicit class Rep7(self: Rep[T7]) {
       def m1: Rep[Int] = T7d1(self)
@@ -326,7 +319,6 @@ object Old {
     def T7d20(x: Rep[T7]): Rep[Int] = lift(42)
   }
   trait Ops8 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T8
     implicit class Rep8(self: Rep[T8]) {
       def m1: Rep[Int] = T8d1(self)
@@ -372,7 +364,6 @@ object Old {
     def T8d20(x: Rep[T8]): Rep[Int] = lift(42)
   }
   trait Ops9 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T9
     implicit class Rep9(self: Rep[T9]) {
       def m1: Rep[Int] = T9d1(self)
@@ -418,7 +409,6 @@ object Old {
     def T9d20(x: Rep[T9]): Rep[Int] = lift(42)
   }
   trait Ops10 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T10
     implicit class Rep10(self: Rep[T10]) {
       def m1: Rep[Int] = T10d1(self)
@@ -464,7 +454,6 @@ object Old {
     def T10d20(x: Rep[T10]): Rep[Int] = lift(42)
   }
   trait Ops11 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T11
     implicit class Rep11(self: Rep[T11]) {
       def m1: Rep[Int] = T11d1(self)
@@ -510,7 +499,6 @@ object Old {
     def T11d20(x: Rep[T11]): Rep[Int] = lift(42)
   }
   trait Ops12 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T12
     implicit class Rep12(self: Rep[T12]) {
       def m1: Rep[Int] = T12d1(self)
@@ -556,7 +544,6 @@ object Old {
     def T12d20(x: Rep[T12]): Rep[Int] = lift(42)
   }
   trait Ops13 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T13
     implicit class Rep13(self: Rep[T13]) {
       def m1: Rep[Int] = T13d1(self)
@@ -602,7 +589,6 @@ object Old {
     def T13d20(x: Rep[T13]): Rep[Int] = lift(42)
   }
   trait Ops14 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T14
     implicit class Rep14(self: Rep[T14]) {
       def m1: Rep[Int] = T14d1(self)
@@ -648,7 +634,6 @@ object Old {
     def T14d20(x: Rep[T14]): Rep[Int] = lift(42)
   }
   trait Ops15 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T15
     implicit class Rep15(self: Rep[T15]) {
       def m1: Rep[Int] = T15d1(self)
@@ -694,7 +679,6 @@ object Old {
     def T15d20(x: Rep[T15]): Rep[Int] = lift(42)
   }
   trait Ops16 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T16
     implicit class Rep16(self: Rep[T16]) {
       def m1: Rep[Int] = T16d1(self)
@@ -740,7 +724,6 @@ object Old {
     def T16d20(x: Rep[T16]): Rep[Int] = lift(42)
   }
   trait Ops17 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T17
     implicit class Rep17(self: Rep[T17]) {
       def m1: Rep[Int] = T17d1(self)
@@ -786,7 +769,6 @@ object Old {
     def T17d20(x: Rep[T17]): Rep[Int] = lift(42)
   }
   trait Ops18 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T18
     implicit class Rep18(self: Rep[T18]) {
       def m1: Rep[Int] = T18d1(self)
@@ -832,7 +814,6 @@ object Old {
     def T18d20(x: Rep[T18]): Rep[Int] = lift(42)
   }
   trait Ops19 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T19
     implicit class Rep19(self: Rep[T19]) {
       def m1: Rep[Int] = T19d1(self)
@@ -878,7 +859,6 @@ object Old {
     def T19d20(x: Rep[T19]): Rep[Int] = lift(42)
   }
   trait Ops20 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T20
     implicit class Rep20(self: Rep[T20]) {
       def m1: Rep[Int] = T20d1(self)
@@ -924,7 +904,6 @@ object Old {
     def T20d20(x: Rep[T20]): Rep[Int] = lift(42)
   }
   trait Ops21 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T21
     implicit class Rep21(self: Rep[T21]) {
       def m1: Rep[Int] = T21d1(self)
@@ -970,7 +949,6 @@ object Old {
     def T21d20(x: Rep[T21]): Rep[Int] = lift(42)
   }
   trait Ops22 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T22
     implicit class Rep22(self: Rep[T22]) {
       def m1: Rep[Int] = T22d1(self)
@@ -1016,7 +994,6 @@ object Old {
     def T22d20(x: Rep[T22]): Rep[Int] = lift(42)
   }
   trait Ops23 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T23
     implicit class Rep23(self: Rep[T23]) {
       def m1: Rep[Int] = T23d1(self)
@@ -1062,7 +1039,6 @@ object Old {
     def T23d20(x: Rep[T23]): Rep[Int] = lift(42)
   }
   trait Ops24 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T24
     implicit class Rep24(self: Rep[T24]) {
       def m1: Rep[Int] = T24d1(self)
@@ -1108,7 +1084,6 @@ object Old {
     def T24d20(x: Rep[T24]): Rep[Int] = lift(42)
   }
   trait Ops25 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T25
     implicit class Rep25(self: Rep[T25]) {
       def m1: Rep[Int] = T25d1(self)
@@ -1154,7 +1129,6 @@ object Old {
     def T25d20(x: Rep[T25]): Rep[Int] = lift(42)
   }
   trait Ops26 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T26
     implicit class Rep26(self: Rep[T26]) {
       def m1: Rep[Int] = T26d1(self)
@@ -1200,7 +1174,6 @@ object Old {
     def T26d20(x: Rep[T26]): Rep[Int] = lift(42)
   }
   trait Ops27 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T27
     implicit class Rep27(self: Rep[T27]) {
       def m1: Rep[Int] = T27d1(self)
@@ -1246,7 +1219,6 @@ object Old {
     def T27d20(x: Rep[T27]): Rep[Int] = lift(42)
   }
   trait Ops28 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T28
     implicit class Rep28(self: Rep[T28]) {
       def m1: Rep[Int] = T28d1(self)
@@ -1292,7 +1264,6 @@ object Old {
     def T28d20(x: Rep[T28]): Rep[Int] = lift(42)
   }
   trait Ops29 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T29
     implicit class Rep29(self: Rep[T29]) {
       def m1: Rep[Int] = T29d1(self)
@@ -1338,7 +1309,6 @@ object Old {
     def T29d20(x: Rep[T29]): Rep[Int] = lift(42)
   }
   trait Ops30 extends Base {
-    this: Ops1 with Ops2 with Ops3 with Ops4 with Ops5 with Ops6 with Ops7 with Ops8 with Ops9 with Ops10 with Ops11 with Ops12 with Ops13 with Ops14 with Ops15 with Ops16 with Ops17 with Ops18 with Ops19 with Ops20 with Ops21 with Ops22 with Ops23 with Ops24 with Ops25 with Ops26 with Ops27 with Ops28 with Ops29 with Ops30 => 
     class T30
     implicit class Rep30(self: Rep[T30]) {
       def m1: Rep[Int] = T30d1(self)
