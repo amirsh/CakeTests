@@ -17,6 +17,10 @@ object Common {
 }
 import Common._
 
+object SimpleTest extends App {
+  output(Code("SimpleTest", 5, 50, 10, implicits = Some(false)).toString, new File("generated"), "SimpleTest.scala")
+}
+
 object TestLinear extends App {
   import sys.process._
   
@@ -25,7 +29,7 @@ object TestLinear extends App {
 //  val numDefs = 5
   for (i <- 5 to 100 by 5) {
     val fname = s"LinTest_$i.scala"
-    output(Code("New", i, 50, 10, implicits = false).toString, folder, fname)
+    output(Code("New", i, 50, 10, implicits = None).toString, folder, fname)
     s"mkdir ${folder}/$fname-bin".!!
     val res = s"time scalac ${folder}/$fname -d ${folder}/$fname-bin".!!
     println(res)
@@ -40,10 +44,10 @@ object CakeGen extends App {
   val (numOps, numDefs, numCakes) = (3, 2, 4)
 //  val (numOps, numDefs, numCakes) = (30, 20, 40)
 
-  val oldCode = Code("Old", numOps, numDefs, numCakes, implicits = true)
-  val oldCodeSelfless = Code("OldSelfless", numOps, numDefs, numCakes, implicits = true, selfTypes = false)
-  val newCode = Code("New", numOps, numDefs, numCakes, implicits = false)
-  val oneCode = Code("One", numOps, numDefs, numCakes, implicits = false, oneCake = true)
+  val oldCode = Code("Old", numOps, numDefs, numCakes, implicits = Some(true))
+  val oldCodeSelfless = Code("OldSelfless", numOps, numDefs, numCakes, implicits = Some(true), selfTypes = false)
+  val newCode = Code("New", numOps, numDefs, numCakes, implicits = None)
+  val oneCode = Code("One", numOps, numDefs, numCakes, implicits = None, oneCake = true)
 
   println(oldCode)
   
@@ -60,12 +64,14 @@ object Code {
             numOps: Int,
             numDefs: Int,
             numCakes: Int,
-            implicits: Boolean,
+            implicits: Option[Boolean], // None: no implicits; Some(true): yes; Some(false): yes, but with explicit application
             oneCake: Boolean = false,
             selfTypes: Boolean = true) = {
     val db = new DocBuilder()
     
-    val cake = 1 to numOps map {"Ops"+_} mkString " with "
+    val cake =
+      if (numOps == 0) "AnyRef"
+      else 1 to numOps map {"Ops"+_} mkString " with "
     
     db.bracesAfter(doc"object $name") {
       
@@ -101,15 +107,21 @@ object Code {
       
       def mkCalls() = for (i <- 1 to numOps) {
         def TRep = doc"lift(new T$i)"
-        if (implicits) {
-          db += TRep
-          for (j <- 1 to numDefs) db += doc".m$j"
-          db.newLine
-        } else {
-          for (j <- 1 to numDefs) db += doc"T${i}d$j("
-          db += TRep
-          for (j <- 1 to numDefs) db += doc")"
-          db.newLine
+        implicits match {
+          case Some(true) =>
+            db += TRep
+            for (j <- 1 to numDefs) db += doc".m$j"
+            db.newLine
+          case Some(false) =>
+            for (j <- 1 to numDefs) db += doc"Rep$i("
+            db += TRep
+            for (j <- 1 to numDefs) db += doc").m$j"
+            db.newLine
+          case None =>
+            for (j <- 1 to numDefs) db += doc"T${i}d$j("
+            db += TRep
+            for (j <- 1 to numDefs) db += doc")"
+            db.newLine
         }
       }
   

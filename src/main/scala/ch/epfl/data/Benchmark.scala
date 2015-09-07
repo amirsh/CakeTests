@@ -9,31 +9,38 @@ import scala.collection.mutable.ArrayBuffer
 object Benchmark extends App {
   import sys.process._
   
-  case class Result(ops: Int, cakes: Int, impl: Boolean, one: Boolean, mixin: Long, erasure: Long, typer: Long, total: Long, user: Double) {
-    def toCsv = s"$ops, $cakes, $impl, $one, $mixin, $erasure, $typer, $total, $user"
+  case class Result(ops: Int, cakes: Int, impl: Option[Boolean], one: Boolean, mixin: Long, erasure: Long, typer: Long, jvm: Long, total: Long, user: Double) {
+    def implStr = impl match {
+      case Some(true)  => "Inferred"
+      case Some(false) => "Provided"
+      case None        => "None"
+    }
+    def toCsv = s"$ops, $cakes, $implStr, $one, $mixin, $erasure, $typer, $jvm, $total, $user"
   }
   object Result {
-    def csvHeaders = "Ops, Cakes, Impl, One, Mixin, Erasure, Typer, Total, User"
+    def csvHeaders = "Ops, Cakes, Impl, One, Mixin, Erasure, Typer, JVM, Total, User"
   }
   
-  case class Faulty(ops: Int, cakes: Int, impl: Boolean, one: Boolean, err: Throwable)
+  case class Faulty(ops: Int, cakes: Int, impl: Option[Boolean], one: Boolean, err: Throwable)
   
   val folder = new File("../bench")
   
   // ops: 85, cakes: 1, defs: 30:
   // => "Could not write class Bench$Use1$ because it exceeds JVM code size limits. Method Bench$Ops1$T1's code too large!"
   
-  val opsRange = 5 to 80 by 5
-  val cakesRange = 1 to 31 by 5
-  val defs = 25 // 30
+//  val opsRange = 0 to 80 by 10
+//  val cakesRange = 1 to 31 by 10
+//  val defs = 25 // 30
+  
 //  // Debugging:
 //  val opsRange = 5 to 5 by 5
 //  val cakesRange = 1 to 1 by 5
 //  val defs = 25
-//  // Debugging:
-//  val opsRange = 85 to 85 by 5
-//  val cakesRange = 1 to 1 by 5
-//  val defs = 25//30
+  
+  // Debugging:
+  val opsRange = 80 to 80 by 5
+  val cakesRange = 31 to 31 by 5
+  val defs = 25 // 30
   
   val ProcessTimes = raw"\s*(.*)\sreal\s*(.*)\suser\s*(.*)\ssys".r
   
@@ -42,16 +49,17 @@ object Benchmark extends App {
   val MixinTime = phaseTime("mixin")
   val ErasureTime = phaseTime("erasure")
   val TyperTime = phaseTime("typer")
+  val JVMTime = phaseTime("jvm")
   val TotalTime = phaseTime("total")
   
-  val totalComp = opsRange.size * cakesRange.size * 2 * 2
+  val totalComp = opsRange.size * cakesRange.size * 2 * 3
   var currentComp = 0
   
   val errLines, outLines = new ArrayBuffer[String](1000)
   val faults = ArrayBuffer[Faulty]()
   
   val ress = (for {
-    impl <- Seq(true, false)
+    impl <- Seq(Some(true), Some(false), None)
     one <- Seq(true, false)
     cakes <- cakesRange
     ops <- opsRange
@@ -67,15 +75,18 @@ object Benchmark extends App {
       
       s"mkdir -p ${folder}/$name-bin".! // -p: ignore if dir already exists
       
-      var mixin, erasure, typer, total = Option.empty[Long]
+      var mixin, erasure, typer, total, jvm = Option.empty[Long]
       var usr = Option.empty[Double]
+      
       val cmd = s"time scalac ${folder}/$name.scala -verbose -d ${folder}/$name-bin"
       println(cmd)
       cmd lineStream ProcessLogger(
+      
       ln => outLines += ln, {
         case MixinTime(t) => mixin = Some(t.toLong)
         case ErasureTime(t) => erasure = Some(t.toLong)
         case TyperTime(t) => typer = Some(t.toLong)
+        case JVMTime(t) => jvm = Some(t.toLong)
         case TotalTime(t) => total = Some(t.toLong)
         case ProcessTimes(r, t, _) =>
           println(s"Total: Scala said $total; time.real said $r")
@@ -85,7 +96,7 @@ object Benchmark extends App {
       
       val res = Result(
         ops, cakes, impl, one,
-        mixin.get, erasure.get, typer.get, total.get,
+        mixin.get, erasure.get, typer.get, jvm.get, total.get,
         usr.get
       )
       
