@@ -9,38 +9,45 @@ import scala.collection.mutable.ArrayBuffer
 object Benchmark extends App {
   import sys.process._
   
-  case class Result(ops: Int, cakes: Int, impl: Option[Boolean], one: Boolean, mixin: Long, erasure: Long, typer: Long, jvm: Long, total: Long, user: Double) {
+  case class Result(ops: Int, defs: Int, defApps: Int, cakes: Int, impl: Option[Boolean], one: Boolean, abs: Boolean, mixin: Long, erasure: Long, typer: Long, jvm: Long, total: Long, user: Double) {
     def implStr = impl match {
       case Some(true)  => "Inferred"
       case Some(false) => "Provided"
       case None        => "None"
     }
-    def toCsv = s"$ops, $cakes, $implStr, $one, $mixin, $erasure, $typer, $jvm, $total, $user"
+    def toCsv = s"$ops, $defs, $defApps, $cakes, $implStr, $one, $abs, $mixin, $erasure, $typer, $jvm, $total, $user"
   }
   object Result {
-    def csvHeaders = "Ops, Cakes, Impl, One, Mixin, Erasure, Typer, JVM, Total, User"
+    def csvHeaders = "Ops, Defs, DefApps, Cakes, Impl, One, Abs, Mixin, Erasure, Typer, JVM, Total, User"
   }
   
-  case class Faulty(ops: Int, cakes: Int, impl: Option[Boolean], one: Boolean, err: Throwable)
+  case class Faulty(ops: Int, defs: Int, defApps: Int, cakes: Int, impl: Option[Boolean], one: Boolean, err: Throwable)
   
   val folder = new File("../bench")
   
   // ops: 85, cakes: 1, defs: 30:
   // => "Could not write class Bench$Use1$ because it exceeds JVM code size limits. Method Bench$Ops1$T1's code too large!"
   
-//  val opsRange = 0 to 80 by 10
-//  val cakesRange = 1 to 31 by 10
+//  val opsRange = 0 to 80 by 8//10
+////  val cakesRange = 1 to 31 by 8//10
+//  val cakesRange = 30 to 30 by 1
 //  val defs = 25 // 30
+  
+  val opsRange = 30 to 30 by 8
+  val cakesRange = 15 to 15 by 1
+//  val defsRange = 0 to 50 by 5
+  val defsRange = 30 to 30 by 5
+  val defAppsRange = 1 to 10 by 1
   
 //  // Debugging:
 //  val opsRange = 5 to 5 by 5
 //  val cakesRange = 1 to 1 by 5
 //  val defs = 25
   
-  // Debugging:
-  val opsRange = 80 to 80 by 5
-  val cakesRange = 31 to 31 by 5
-  val defs = 25 // 30
+//  // Debugging:
+//  val opsRange = 80 to 80 by 5
+//  val cakesRange = 31 to 31 by 5
+//  val defs = 25 // 30
   
   val ProcessTimes = raw"\s*(.*)\sreal\s*(.*)\suser\s*(.*)\ssys".r
   
@@ -52,17 +59,19 @@ object Benchmark extends App {
   val JVMTime = phaseTime("jvm")
   val TotalTime = phaseTime("total")
   
-  val totalComp = opsRange.size * cakesRange.size * 2 * 3
+  val totalComp = opsRange.size * cakesRange.size * defsRange.size * defAppsRange.size * 2 * 3
   var currentComp = 0
   
   val errLines, outLines = new ArrayBuffer[String](1000)
   val faults = ArrayBuffer[Faulty]()
   
   val ress = (for {
-    impl <- Seq(Some(true), Some(false), None)
-    one <- Seq(true, false)
-    cakes <- cakesRange
-    ops <- opsRange
+    impl      <- Seq(Some(true), Some(false), None)
+    (one,abs) <- Seq((true, true)) // Seq((true, false), (false, false), (false, true))
+    cakes     <- cakesRange
+    ops       <- opsRange
+    defs      <- defsRange
+    defApps   <- defAppsRange
   } yield try {
       currentComp += 1
       println(s"$currentComp out of $totalComp")
@@ -70,8 +79,8 @@ object Benchmark extends App {
       errLines.clear()
       outLines.clear()
       
-      val name = s"Bench-$impl-$one"
-      output(Code("Bench", ops, defs, cakes, implicits = impl, oneCake = one).toString, folder, name+".scala")
+      val name = s"Bench-$ops-$defs-$defApps-$impl-$one-$abs-$cakes"
+      output(Code("Bench", ops, defs, cakes, implicits = impl, oneCake = one, absClass = abs, defApps = defApps).toString, folder, name+".scala")
       
       s"mkdir -p ${folder}/$name-bin".! // -p: ignore if dir already exists
       
@@ -95,7 +104,7 @@ object Benchmark extends App {
       })
       
       val res = Result(
-        ops, cakes, impl, one,
+        ops, defs, defApps, cakes, impl, one, abs,
         mixin.get, erasure.get, typer.get, jvm.get, total.get,
         usr.get
       )
@@ -110,7 +119,7 @@ object Benchmark extends App {
         errLines foreach System.err.println
         System.err.println("\nOutput lines:")
         outLines foreach System.err.println
-        faults += Faulty(ops, cakes, impl, one, e)
+        faults += Faulty(ops, defs, defApps, cakes, impl, one, e)
         None
   }).flatten
   
@@ -120,7 +129,9 @@ object Benchmark extends App {
   }
   
   println("Done.")
-  println("Faulty configurations:")
+  
+  if (faults.size > 0)
+    println("Faulty configurations:")
   faults foreach println
   
   

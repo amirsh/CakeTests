@@ -18,7 +18,9 @@ object Common {
 import Common._
 
 object SimpleTest extends App {
-  output(Code("SimpleTest", 5, 50, 10, implicits = Some(false)).toString, new File("generated"), "SimpleTest.scala")
+//  output(Code("SimpleTest", 4, 5, 3, implicits = Some(false), absClass = true, oneCake = false).toString, new File("generated"), "SimpleTest.scala")
+//  output(Code("SimpleTest", 2, 2, 2, implicits = Some(true), absClass = false, oneCake = false).toString, new File("generated"), "SimpleTest.scala")
+  output(Code("SimpleTest", 80, 30, 30, implicits = Some(false), absClass = true, oneCake = false).toString, new File("../bench"), "SimpleTest.scala")
 }
 
 object TestLinear extends App {
@@ -66,7 +68,9 @@ object Code {
             numCakes: Int,
             implicits: Option[Boolean], // None: no implicits; Some(true): yes; Some(false): yes, but with explicit application
             oneCake: Boolean = false,
-            selfTypes: Boolean = true) = {
+            absClass: Boolean = false,
+            selfTypes: Boolean = true,
+            defApps: Int = 1) = {
     val db = new DocBuilder()
     
     val cake =
@@ -98,6 +102,8 @@ object Code {
       
       if (oneCake)
         db +=\\ doc"object Cake extends $cake"
+      else
+        db +=\\ {(if (absClass) "abstract class " else "trait ") + "DSL" + " extends " + cake}
       
 //      def mkCalls = for (i <- 1 to numOps; j <- 1 to numDefs) {
 //        def TRep = doc"lift(new T$i)"
@@ -105,7 +111,7 @@ object Code {
 //        else db +=\\ doc"T${i}d$j($TRep)"
 //      }
       
-      def mkCalls() = for (i <- 1 to numOps) {
+      def mkCalls() = for (i <- 1 to numOps; _ <- 1 to defApps) {
         def TRep = doc"lift(new T$i)"
         implicits match {
           case Some(true) =>
@@ -129,7 +135,7 @@ object Code {
         if (oneCake) db.bracesAfter(doc"object Use$c") {
           db +=\\ doc"import Cake._"
           mkCalls()
-        } else db.bracesAfter(doc"class Cake$c extends " + cake) {
+        } else db.bracesAfter(doc"class Cake$c extends DSL") {
           mkCalls()
         }
   
@@ -138,7 +144,6 @@ object Code {
     db.toDoc
   }
 }
-
 
 
 
