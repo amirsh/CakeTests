@@ -8,4 +8,6 @@ organization := "ch.epfl.data"
 
 version := "0.1"
 
+resolvers += Resolver.sonatypeRepo("snapshots")
+
 libraryDependencies += "ch.epfl.data" % "sc-shared_2.11" % "0.1-SNAPSHOT"
